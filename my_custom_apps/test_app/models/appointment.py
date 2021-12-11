@@ -7,6 +7,7 @@ class HospitalAppointment(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
+
     @api.model
     def create(self, vals_list):
         if vals_list.get('name',_('New')) == _("New"):
