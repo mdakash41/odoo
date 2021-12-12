@@ -75,7 +75,7 @@
                     </group>
                     <group>
                         <field name="notes"/>
-                        <field name="image"/>
+<!--                        <field name="image"/>-->
                     </group>
                 </sheet>
                 <div class="oe_chatter">

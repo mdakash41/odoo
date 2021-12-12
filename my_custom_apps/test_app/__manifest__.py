@@ -29,6 +29,8 @@
         'views/views.xml',
         'views/templates.xml',
         'views/sequence.xml',
+        'reports/report.xml',
+        'reports/patient_card.xml',
 
     ],
     # only loaded in demonstration mode
