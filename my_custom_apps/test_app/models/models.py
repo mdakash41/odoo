@@ -22,6 +22,12 @@ class HospitalPatient(models.Model):
                 return
             record.age_group = 'major'
 
+    @api.depends('total_appointment')
+    def get_total_appointment(self):
+        total_app = self.env['hospital.appointment'].search_count([('patient_id', '=', self.id)])
+        self.total_appointment = total_app
+
+
     @api.constrains('patient_age')
     def checkAge(self):
         for record in self:
@@ -41,12 +47,25 @@ class HospitalPatient(models.Model):
         ],
         string="Age Group", compute="getAgeGroup"
     )
+    total_appointment = fields.Integer(string="Toal Appointment", compute='get_total_appointment')
     @api.model
     def create(self, vals):
         if vals.get('name_seq',_('New'))==_('New'):
             vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patient.sequence') or _('New')
             result = super(HospitalPatient, self).create(vals)
             return result
+
+
+    def open_patients_appointment(self):
+        return {
+            'name':_('Appointments'),
+            'domain':[('patient_id','=',self.id)],
+            'view_type':'form',
+            'res_model':'hospital.appointment',
+            'view_id':False,
+            'view_mode':'tree,form',
+            'type':'ir.actions.act_window'
+        }
 
 
 # class test_app(models.Model):

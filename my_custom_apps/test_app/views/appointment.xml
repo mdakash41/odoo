@@ -20,6 +20,11 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <form string="Appointment">
+                <header>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
+                    <button name="action_done" states="confirm" type="object" string="Done" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
