@@ -3,6 +3,15 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    @api.model
+    def create(self, vals_list):
+        res = super(ResPartner, self).create(vals_list)
+        print(vals_list)
+        return res
+
 class SaleOrderInherit(models.Model):
     _inherit = 'sale.order'
 
@@ -48,6 +57,7 @@ class HospitalPatient(models.Model):
         string="Age Group", compute="getAgeGroup"
     )
     total_appointment = fields.Integer(string="Toal Appointment", compute='get_total_appointment')
+    active = fields.Boolean("Active",default=True)
     @api.model
     def create(self, vals):
         if vals.get('name_seq',_('New'))==_('New'):
@@ -55,6 +65,9 @@ class HospitalPatient(models.Model):
             result = super(HospitalPatient, self).create(vals)
             return result
 
+    def toggle_active(self):
+        for record in self:
+            record.active = not record.active
 
     def open_patients_appointment(self):
         return {

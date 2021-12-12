@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-      <record id="appoint_tree" model="ir.ui.view">
+    <record id="appoint_tree" model="ir.ui.view">
         <field name="name">hospital.appointment.tree</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <tree string="Appointment">
                 <field name="patient_id"/>
-<!--                <field name="name"/>-->
-                <field name="patient_age"/>
+                <!--                <field name="name"/>-->
+                <field name="patient_age" avg="Average of total age" sum="Total Age"/>
                 <field name="notes"/>
                 <field name="appointment_date"/>
             </tree>
@@ -43,6 +43,18 @@
                         <field name="notes"/>
                         <field name="patient_id"/>
                     </group>
+                    <notebook>
+                        <page string="Doctor Prescription">
+                            <group>
+                                <field name="doctor_note"/>
+                            </group>
+                        </page>
+                        <page string="Pharmacy">
+                            <group>
+                                <field name="pharmacy_note"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_follower"/>
@@ -54,14 +66,14 @@
         </field>
     </record>
 
-        <record id="appointment_action" model="ir.actions.act_window">
+    <record id="appointment_action" model="ir.actions.act_window">
         <field name="name">Appointment</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p>Testing my odoo app
-            create first patient!
+                create first patient!
             </p>
         </field>
     </record>

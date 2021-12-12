@@ -30,6 +30,7 @@
         'views/templates.xml',
         'views/sequence.xml',
         'reports/report.xml',
+        'demo/data.xml',
         'reports/patient_card.xml',
 
     ],

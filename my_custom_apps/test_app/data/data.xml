@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="demo_patient" model="hospital.patient">
+            <!--            <field name="patient_name">Demo Patient</field>-->
+            <field name="patient_age">55</field>
+            <field name="name">Demo Name</field>
+            <field name="gender">male</field>
+            <field name="notes">Demo nodes</field>
+        </record>
+    </data>
+
+<!--    <data noupdate="1">-->
+<!--        <record id="demo_appointment" model="hospital.appointment">-->
+<!--            <field name="patient_id" ref="demo_patient"/>-->
+<!--            <field name="notes">This is generated note</field>-->
+<!--            <field name="appointment_date">12/22/2021</field>-->
+
+<!--        </record>-->
+<!--    </data>-->
+
+</odoo>
