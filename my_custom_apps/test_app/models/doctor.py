@@ -10,5 +10,5 @@ class HospitalDoctor(models.Model):
     gender = fields.Selection([
         ('male',"Male"),
         ('female','Female')
-    ],default='male',string="Gender")
-    user_id = fields.Many2one('res.users',string="Related User")
+    ], default='male', string="Gender")
+    user_id = fields.Many2one('res.users', string="Related User")

@@ -1,11 +1,5 @@
 from odoo import models,fields,api,_
 
-
-
-
-
-
-
 class HospitalAppointment(models.Model):
     _name = 'hospital.appointment'
     _description = 'Appointment'
