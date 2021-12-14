@@ -8,7 +8,7 @@ class HospitalDoctor(models.Model):
 
     name = fields.Char('Name',required=True)
     gender = fields.Selection([
-        ('male',"Male"),
-        ('female','Female')
+        ('male', "Male"),
+        ('female', 'Female')
     ], default='male', string="Gender")
     user_id = fields.Many2one('res.users', string="Related User")

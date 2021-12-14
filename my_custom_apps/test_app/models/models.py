@@ -31,11 +31,23 @@ class HospitalPatient(models.Model):
                 return
             record.age_group = 'major'
 
+
+
+    def name_get(self):
+        res = []
+        for field in self:
+            res.append((field.id,'%s %s'%(field.name_seq,field.name)))
+        return res
     @api.depends('total_appointment')
     def get_total_appointment(self):
         total_app = self.env['hospital.appointment'].search_count([('patient_id', '=', self.id)])
         self.total_appointment = total_app
 
+    @api.onchange('doctor_id')
+    def set_doctor_gender(self):
+        for record in self:
+            if record.doctor_id:
+                record.doctor_gender = record.doctor_id.gender
 
     @api.constrains('patient_age')
     def checkAge(self):
@@ -56,8 +68,18 @@ class HospitalPatient(models.Model):
         ],
         string="Age Group", compute="getAgeGroup"
     )
+
+    doctor_gender = fields.Selection(
+        [
+            ('male','Male'),
+            ('femail','Female')
+        ],
+        string="Doctor Age",
+    )
     total_appointment = fields.Integer(string="Toal Appointment", compute='get_total_appointment')
     active = fields.Boolean("Active",default=True)
+    doctor_id = fields.Many2one('hospital.doctor', string="Doctor")
+
     @api.model
     def create(self, vals):
         if vals.get('name_seq',_('New'))==_('New'):
@@ -65,9 +87,9 @@ class HospitalPatient(models.Model):
             result = super(HospitalPatient, self).create(vals)
             return result
 
-    def toggle_active(self):
-        for record in self:
-            record.active = not record.active
+    # def toggle_active(self):
+    #     for record in self:
+    #         record.active = not record.active
 
     def open_patients_appointment(self):
         return {
@@ -80,6 +102,8 @@ class HospitalPatient(models.Model):
             'type':'ir.actions.act_window'
         }
 
+    def test_app(self):
+        pass
 
 # class test_app(models.Model):
 #     _name = 'test_app.test_app'
