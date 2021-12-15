@@ -7,7 +7,12 @@
             report_type="qweb-pdf"
             name="test_app.report_patient"
             file="test_app.report_patient"/>
-<!--            menu= False means this menu will not visiable.-->
-<!--            menu="False"-->
-
+    <!--            menu= False means this menu will not visiable.-->
+    <!--            menu="False"-->
+    <report id="report_patient_card_xls"
+            string="Patient Card Excel"
+            model="hospital.patient"
+            report_type="xlsx"
+            name="test_app.report_patient_xls"
+            file="test_app.report_patient_xls"/>
 </odoo>

@@ -15,4 +15,12 @@ class CreateAppointment(models.Model):
             'appointment_date': self.appointment_date
         }
 
+        self.patient_id.message_post(body="Test String ",subject='Appointment Creation')
         self.env['hospital.appointment'].create(vals)
+
+    def get_data_from_db(self):
+        appointments_result = self.env[
+            'hospital.appointment'
+        ].search([('patient_id','=',3)])
+        for record in appointments_result:
+            print('Appointment Name',record.name)

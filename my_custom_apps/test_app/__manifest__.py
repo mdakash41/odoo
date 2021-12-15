@@ -32,6 +32,7 @@
         'views/sequence.xml',
         'reports/report.xml',
         'data/data.xml',
+        'data/mail_template.xml',
         'reports/patient_card.xml',
         'views/doctor.xml',
         'wizards/create_appointment.xml'

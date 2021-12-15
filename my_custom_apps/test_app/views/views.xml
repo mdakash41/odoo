@@ -59,6 +59,7 @@
 
                 <header>
                     <button name="%(test_app.create_appointment_wizard)d" type="action" string="Create Appointment" context="{'default_patient_id':active_id}" class="oe_highlight"/>
+                    <button name="action_send_card" type="object" string="Send Patient Mail" class="oe_highlight"/>
                 </header>
 
                 <sheet>
@@ -90,7 +91,10 @@
                     </div>
                     <group>
                         <field string="Your Name here" name="name"/>
+                        <field name="patient_name_upper" />
                         <field name="patient_age" />
+                        <field name="user_id" />
+                        <field name="email_id" groups="test_app.group_hospital_manager" />
                         <field name="gender"/>
                         <field name="age_group"/>
                         <field name="doctor_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
