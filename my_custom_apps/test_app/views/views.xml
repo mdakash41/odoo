@@ -91,7 +91,7 @@
                     </div>
                     <group>
                         <field string="Your Name here" name="name"/>
-                        <field name="patient_name_upper" />
+                        <field name="patient_name_upper" groups="base.group_no_one"/>
                         <field name="patient_age" />
                         <field name="user_id" />
                         <field name="email_id" groups="test_app.group_hospital_manager" />
