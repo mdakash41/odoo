@@ -4,3 +4,4 @@ access_test_app_hostpital_appointment,test_app.test_app_appointment,model_hospit
 access_test_app_hostpital_doctor,test_app.test_app_doctor,model_hospital_doctor,base.group_user,1,1,1,1
 access_test_app_hospital_appointment_lines,test_app.test_app_appointment_lines,model_hospital_appointment_lines,base.group_user,1,1,1,1
 access_test_app_create_appointment,test.app.test_app_create_appointment,model_create_appointment,base.group_user,1,1,1,1
+access_test_app_hospital_lab,test_app.test_app_lab,model_hospital_lab,base.group_user,1,1,1,1

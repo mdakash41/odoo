@@ -28,6 +28,7 @@
         'security/security.xml',
         'views/appointment.xml',
         'views/views.xml',
+        'views/lab.xml',
         'views/templates.xml',
         'views/sequence.xml',
         'reports/report.xml',
