@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+
+<!--    This part is to active a setting in res.config.setting model. here eval 0 means not active and 1 means active -->
+<!--    <data>-->
+<!--        <record model="res.config.setting" id="res_config_setting">-->
+<!--            <field name="group_product_varient" eval="1"/>-->
+<!--        </record>-->
+<!--    </data>-->
+
+<!--    <function model ="res.config.setting" name="execute">-->
+<!--        <value eval="[ref('res_config_setting')]"/>-->
+<!--        <value eval="{}"/>-->
+<!--    </function>-->
+
     <data noupdate="1">
         <record id="demo_patient" model="hospital.patient">
             <!--            <field name="patient_name">Demo Patient</field>-->

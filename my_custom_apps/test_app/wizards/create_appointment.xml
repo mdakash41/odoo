@@ -10,8 +10,10 @@
                     <field name="appointment_date" />
                 </group>
                 <footer>
+                    <button name="print_report" string="Print Report" type="object" class="btn-primary"/>
                     <button name="create_appointment_object" string="Create" type="object" class="btn-primary"/>
                     <button name="get_data_from_db" string="Get Data" type="object" class="btn-primary"/>
+                    <button name="delete_data_from_code" string="Delete Record" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

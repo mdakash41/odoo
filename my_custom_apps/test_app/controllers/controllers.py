@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
-# from odoo import http
+from odoo import http
+from odoo.http import request
 
 
-# class TestApp(http.Controller):
-#     @http.route('/test_app/test_app/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+class TestApp(http.Controller):
+    @http.route('/test_app/', website = True, auth='public')
+    def index(self, **kw):
+        patients = request.env['hospital.patient'].sudo().search([])
+        return request.render("test_app.patient_page",{
+            'patients': patients
+        })
+        # return "Hello, world"
+
 
 #     @http.route('/test_app/test_app/objects/', auth='public')
 #     def list(self, **kw):

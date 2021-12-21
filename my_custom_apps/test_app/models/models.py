@@ -3,8 +3,16 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+
+
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    # company_type = fields.Char("hello")
+    company_type = fields.Selection(selection_add=[(
+        'hospital', 'Hospital'
+    )])
 
     @api.model
     def create(self, vals_list):
@@ -74,9 +82,13 @@ class HospitalPatient(models.Model):
             if record.patient_age < 5:
                 raise ValidationError("Age should be greater than 5")
 
+    def print_patient_card(self):
+        print("hello from print patient card function")
+        return self.env.ref('test_app.report_patient_card').report_action(self)
+
     name = fields.Char("Name", required=True)
     gender = fields.Selection([('male','Male'),('fe_male','Female')],default='male',string='Gender', track_visibility='always')
-    patient_age = fields.Integer("Age", track_visibility='always')
+    patient_age = fields.Integer("Age", track_visibility='always',group_operator=False)
     notes = fields.Text(string="Notes")
     image = fields.Binary(string="Image")
     name_seq = fields.Char(string='Order Reference', required=True, copy=False, readonly=True, index=True, default= lambda self:_('New'))
@@ -85,7 +97,7 @@ class HospitalPatient(models.Model):
             ('major','Major'),
             ('minor','Minor')
         ],
-        string="Age Group", compute="getAgeGroup"
+        string="Age Group", compute="getAgeGroup",store=True
     )
     doctor_gender = fields.Selection(
         [

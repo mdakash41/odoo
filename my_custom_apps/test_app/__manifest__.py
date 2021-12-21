@@ -36,6 +36,8 @@
         'data/cron.xml',
         'data/mail_template.xml',
         'reports/patient_card.xml',
+        'reports/setting.xml',
+        'reports/sale_report_inherit.xml',
         'views/doctor.xml',
         'wizards/create_appointment.xml'
     ],
@@ -44,3 +46,4 @@
         'demo/demo.xml',
     ],
 }
+

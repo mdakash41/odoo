@@ -5,13 +5,26 @@
         <field name="name">hospital.appointment.tree</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <tree string="Appointment">
+            <tree string="Appointment" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'"
+                  decoration-success="state == 'done'" decoration-danger="state == 'confirm'">
                 <field name="patient_id"/>
                 <!--                <field name="name"/>-->
                 <field name="patient_age" avg="Average of total age" sum="Total Age"/>
                 <field name="notes"/>
+                <field name="state"/>
                 <field name="appointment_date"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="appointment_calendar" model="ir.ui.view">
+        <field name="name">hospital.appointment.calendar</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment Calendar" date_start="appointment_date" color="patient_id" mode="month" quick_add="True">
+                <field name="name"/>
+                <field name="patient_id"/>
+            </calendar>
         </field>
     </record>
 
@@ -21,8 +34,10 @@
         <field name="arch" type="xml">
             <form string="Appointment">
                 <header>
+
                     <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
                     <button name="action_done" states="confirm" type="object" string="Done" class="oe_highlight"/>
+                    <button name="action_delete_onetomany" type="object" string="Delete_onetomant" class="oe_hightlight"></button>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
                 </header>
                 <sheet>
@@ -36,12 +51,14 @@
                             <field name="patient_age"/>
                         </group>
                         <group>
-                            <field name="appointment_date"/>
+                            <field name="appointment_date" options='{"datepicker":{"daysOfWeekDisabled":[0,6]}}'/>
                         </group>
                     </group>
                     <group>
                         <field name="notes"/>
                         <field name="patient_id"/>
+                        <field name="partner_id"/>
+                        <field name="order_id"/>
                     </group>
                     <notebook>
                         <page string="Doctor Prescription">
@@ -50,7 +67,7 @@
                                     <tree editable="bottom">
                                         <field name="product_id"/>
                                         <field name="product_qty"/>
-                                        <field name="appointment_id" invisiable="1"/>
+<!--                                        <field name="appointment_id" invisiable="1"/>-->
                                     </tree>
                                     <form>
                                         <group>
@@ -86,7 +103,7 @@
         <field name="name">Appointment</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hospital.appointment</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar</field>
         <field name="help" type="html">
             <p>Testing my odoo app
                 create first patient!

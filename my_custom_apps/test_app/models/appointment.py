@@ -1,5 +1,5 @@
 from odoo import models,fields,api,_
-
+import pytz
 class HospitalAppointment(models.Model):
     _name = 'hospital.appointment'
     _description = 'Appointment'
@@ -15,6 +15,24 @@ class HospitalAppointment(models.Model):
             vals_list['name'] = self.env['ir.sequence'].next_by_code('hostpital.appointment') or _('New')
         result = super(HospitalAppointment, self).create(vals_list)
         return result
+
+    # NOTE: this function is used to set the default value for set
+    @api.model
+    def default_get(self, fields_list):
+        result = super(HospitalAppointment, self).default_get(fields_list)
+        result['patient_id'] = 5
+        result['notes']='This default string is comming from the api.model get_default funciton'
+        return  result
+
+
+    @api.onchange('partner_id')
+    def OnChange_parner_id(self):
+        for record in self:
+            return {
+                'domain': {
+                    'order_id': [('partner_id','=',record.partner_id.id)]
+                }
+            }
 
     def write(self, vals):
         res = super(HospitalAppointment, self).write(vals)
@@ -35,6 +53,17 @@ class HospitalAppointment(models.Model):
         for record in self:
             record.state = 'done'
 
+    def action_delete_onetomany(self):
+        for record in self:
+            print("time in UTC",record.appointment_date)
+            user_tz=pytz.timezone(self.env.context.get('tz') or self.env.user.tz)
+            print("user tz",user_tz)
+            date_today = user_tz.localize(record.appointment_date).astimezone(user_tz)
+            print("time in local timezone",date_today)
+
+
+            record.appointment_lines = [(5,0,0)]
+
     name = fields.Char(string='Appointment ID', required = True, copy = False, readonly = True,
                        index = True, default= lambda self:_('New')
                        )
@@ -44,13 +73,16 @@ class HospitalAppointment(models.Model):
     doctor_note = fields.Text(String='Doctor Note')
     appointment_lines = fields.One2many('hospital.appointment.lines', 'appointment_id', string="Appointment Lines")
     pharmacy_note = fields.Text(String= 'Pharmacy Note')
-    appointment_date = fields.Date(string="Date",required=True)
+    appointment_date = fields.Date(string="Date", required=True)
     state = fields.Selection([
-        ('draft','Draft'),
-        ('confirm',"Confirm"),
+        ('draft', 'Draft'),
+        ('confirm', "Confirm"),
         ('done','Done'),
         ('cancel','Cancelled'),
     ], string='Status', index=True, readonly=True,default='draft')
+
+    partner_id  = fields.Many2one('res.partner',string='Customer')
+    order_id = fields.Many2one('sale.order',string="Sale Order")
 
 
     class HospitalAppointmentLines(models.Model):
