@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail','sale'],
+    'depends': ['base','mail','sale','report_xlsx'],
 
     # always loaded
     'data': [
@@ -39,6 +39,8 @@
         'reports/setting.xml',
         'reports/sale_report_inherit.xml',
         'views/doctor.xml',
+        'views/server_actions.xml',
+        'views/dashboard.xml',
         'wizards/create_appointment.xml'
     ],
     # only loaded in demonstration mode

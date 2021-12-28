@@ -86,6 +86,26 @@ class HospitalPatient(models.Model):
         print("hello from print patient card function")
         return self.env.ref('test_app.report_patient_card').report_action(self)
 
+
+    def print_patient_card_excell(self):
+        print("hello from print patient card Excell function")
+        # this must be same as the corresponding report id
+        return self.env.ref('test_app.report_patient_card_xls').report_action(self)
+
+    def action_patient(self):
+        print("this button is clicked")
+        return {
+            'name': _('Patient Server Action'),
+            'domain': [],
+            'view_type': 'form',
+            'res_model': 'hospital.patient',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'type': 'ir.actions.act_window'
+        }
+
+
+
     name = fields.Char("Name", required=True)
     gender = fields.Selection([('male','Male'),('fe_male','Female')],default='male',string='Gender', track_visibility='always')
     patient_age = fields.Integer("Age", track_visibility='always',group_operator=False)

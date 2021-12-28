@@ -8,6 +8,10 @@ class HospitalAppointment(models.Model):
     _rec_name = 'patient_id'
 
 
+    def action_notify(self):
+        for record in self:
+            print("notification added")
+            record.patient_id.user_id.notify_danger("Appointments")
 
     @api.model
     def create(self, vals_list):
@@ -47,6 +51,13 @@ class HospitalAppointment(models.Model):
     def action_confirm(self):
         for record in self:
             record.state = 'confirm'
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': "Appointment Confirm",
+                    'type': 'rainbow_man',
+                }
+            }
 
     #button name defiend in appointment.xml file
     def action_done(self):
@@ -83,7 +94,7 @@ class HospitalAppointment(models.Model):
 
     partner_id  = fields.Many2one('res.partner',string='Customer')
     order_id = fields.Many2one('sale.order',string="Sale Order")
-
+    amount = fields.Float(string="Total Amount")
 
     class HospitalAppointmentLines(models.Model):
         _name = 'hospital.appointment.lines'
@@ -92,4 +103,4 @@ class HospitalAppointment(models.Model):
         product_id = fields.Many2one('product.product',string="Medicine")
         product_qty = fields.Integer(string="Quantity")
         appointment_id = fields.Many2one('hospital.appointment',string='Appointment ID')
-
+        sequence = fields.Integer(string="Sequence")

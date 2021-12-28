@@ -10,6 +10,15 @@ class TestApp(http.Controller):
         return request.render("test_app.patient_page",{
             'patients': patients
         })
+
+    @http.route('/test_app/appointments/',auh='public' ,type='json')
+    def hello(self):
+        return {
+            'html': """
+                    <div>
+                        <h1>hello, world</h1>
+                    </div> """
+        }
         # return "Hello, world"
 
 

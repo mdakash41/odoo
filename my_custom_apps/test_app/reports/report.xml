@@ -13,6 +13,6 @@
             string="Patient Card Excel"
             model="hospital.patient"
             report_type="xlsx"
-            name="test_app.report_patient_xls"
-            file="test_app.report_patient_xls"/>
+            name="test_app.report_patient_card_xls1"
+            file="test_app.report_patient_card_xls1"/>
 </odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="hospital_patient_action" model="ir.actions.server">
+            <field name="name">Patient Server Actions</field>
+            <field name="model_id" ref="test_app.model_hospital_patient"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_patient()</field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="hospital_patient_server_action_menu" name="Server Action" parent="hospital_root" action="hospital_patient_action" />
+    </data>
+
+</odoo>

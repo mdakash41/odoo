@@ -21,9 +21,10 @@
         <field name="name">hospital.appointment.calendar</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <calendar string="Appointment Calendar" date_start="appointment_date" color="patient_id" mode="month" quick_add="True">
+            <calendar event_open_popup="false" date_start="appointment_date" color="state" mode="month" quick_add="True">
                 <field name="name"/>
-                <field name="patient_id"/>
+                <field  invisible="True" name="state"/>
+<!--                <field name="patient_age"/>-->
             </calendar>
         </field>
     </record>
@@ -32,12 +33,13 @@
         <field name="name">hospital.appointment.form</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <form string="Appointment">
+            <form string="Appointment" banner_route="/test_app/appointments">
                 <header>
 
                     <button name="action_confirm" states="draft" type="object" string="Confirm" class="oe_highlight"/>
                     <button name="action_done" states="confirm" type="object" string="Done" class="oe_highlight"/>
                     <button name="action_delete_onetomany" type="object" string="Delete_onetomant" class="oe_hightlight"></button>
+                    <button name="action_notify" type="object" string="Notify" class="oe_hightlight"></button>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
                 </header>
                 <sheet>
@@ -58,21 +60,22 @@
                         <field name="notes"/>
                         <field name="patient_id"/>
                         <field name="partner_id"/>
-                        <field name="order_id"/>
+                        <field name="order_id" />
                     </group>
                     <notebook>
                         <page string="Doctor Prescription">
                             <group>
                                 <field name="appointment_lines">
                                     <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
                                         <field name="product_id"/>
                                         <field name="product_qty"/>
 <!--                                        <field name="appointment_id" invisiable="1"/>-->
                                     </tree>
                                     <form>
-                                        <group>
+                                        <group >
                                             <group>
-                                                <field name="product_id"/>
+                                                <field  name="product_id"/>
                                             </group>
                                             <group>
                                                 <field name="product_qty"/>
@@ -99,11 +102,37 @@
         </field>
     </record>
 
+
+<!--    pivot graph viewe-->
+    <record id="appointment_pivot" model="ir.ui.view">
+        <field name="name">hospital.appointment.pivot</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <pivot string="Appointment">
+                <field name="patient_id" />
+                <field name="appointment_date" interval="day"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <!--     graph view-->
+    <record id="appoint_graph" model="ir.ui.view">
+        <field name="name">hospital.appointment.graph</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <graph string="Appointment Graph" type = 'pie'>
+                <field name="patient_id" />
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
     <record id="appointment_action" model="ir.actions.act_window">
         <field name="name">Appointment</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hospital.appointment</field>
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">tree,form,calendar,graph,pivot</field>
         <field name="help" type="html">
             <p>Testing my odoo app
                 create first patient!

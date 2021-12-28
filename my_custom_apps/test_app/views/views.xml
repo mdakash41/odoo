@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-<!--    this section is for adding a new option into the action section     -->
+    <!--    this section is for adding a new option into the action section     -->
     <record id="action_patient_appointments" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hospital.appointment</field>
         <field name="domain">[('patient_id','=',active_id)]</field>
-<!--        <field name="view_type">form</field>-->
+        <!--        <field name="view_type">form</field>-->
         <field name="view_mode">tree,form</field>
-<!--        <field name="view_id" ref="test_app.appointment_tree"/>-->
+        <!--        <field name="view_id" ref="test_app.appointment_tree"/>-->
         <field name="binding_model_id" ref="model_hospital_patient"/>
     </record>
 
@@ -50,16 +50,20 @@
         </field>
     </record>
 
+
+
+
     <!--    form view of the patient model-->
     <record id="patient_form" model="ir.ui.view">
         <field name="name">hospital.patient.form</field>
         <field name="model">hospital.patient</field>
-        <field name="arch" type="xml">
+        <field name="arch" type="xml" >
             <form string="Patients">
 
                 <header>
                     <button name="%(test_app.create_appointment_wizard)d" type="action" string="Create Appointment" context="{'default_patient_id':active_id}" class="oe_highlight"/>
                     <button name="action_send_card" type="object" string="Send Patient Mail" class="oe_highlight"/>
+                    <button name="print_patient_card_excell" type="object" string="Print Patient Card Excell" class="oe_highlight"/>
                     <button name="print_patient_card" type="object" string="Print Patient Card" class="oe_highlight"/>
                 </header>
 
@@ -90,16 +94,25 @@
                             <field name="name_seq" readonly="1"/>
                         </h1>
                     </div>
-                    <group>
-                        <field string="Your Name here" name="name"/>
-                        <field name="patient_name_upper" groups="base.group_no_one"/>
-                        <field name="patient_age" />
-                        <field name="user_id" />
-                        <field name="email_id" groups="test_app.group_hospital_manager" />
-                        <field name="gender"/>
-                        <field name="age_group"/>
-                        <field name="doctor_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
-                        <field name="doctor_gender"/>
+                    <group col="3">
+                        <group >
+                            <field string="Your Name here" name="name"/>
+                            <field name="patient_name_upper" groups="base.group_no_one"/>
+
+                        </group>
+                        <group>
+                            <field name="patient_age" />
+                            <field name="user_id" />
+                        </group>
+                        <group>
+                            <field name="email_id" groups="test_app.group_hospital_manager" />
+                            <field name="gender"  />
+                            <field name="age_group"/>
+                            <field name="doctor_id" attrs="{'invisible':[('gender','=','male')]}" options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+                            <field name="doctor_gender"/>
+                        </group>
+
+
                     </group>
                     <group>
                         <field name="notes"/>
@@ -130,12 +143,12 @@
         </field>
     </record>
 
-<!--Kanban View     -->
+    <!--Kanban View     -->
     <record id="patient_kanban" model="ir.ui.view">
         <field name="name">hospital.patient.kanban</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-<!--          use this inside kanban to sort this based on group  default_group_by="doctor_id"-->
+            <!--          use this inside kanban to sort this based on group  default_group_by="doctor_id"-->
             <kanban default_group_by="doctor_id">
                 <field name="id"/>
                 <field name="image"/>
