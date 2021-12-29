@@ -7,6 +7,17 @@
         <field name="sequence">45 </field>
     </record>
 
+    <record model="ir.module.category" id="module_category_hospital2">
+        <field name="name">Hospital Management 2 </field>
+        <field name="description">Category For Hospital management test</field>
+        <field name="sequence">45 </field>
+    </record>
+
+    <record id="group_hospital_doctor_new" model="res.groups">
+        <field name="name">Dummy doctor</field>
+        <field name="category_id" ref="module_category_hospital2"/>
+    </record>
+
     <record id="group_hospital_doctor" model="res.groups">
         <field name="name">Doctor</field>
         <field name="category_id" ref="module_category_hospital"/>

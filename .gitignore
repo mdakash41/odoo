@@ -39,3 +39,8 @@ setup/win32/static/postgresql*.exe
 /man/
 /share/
 /src/
+./my_custom_apps/muk/
+./my_custom_apps/web_notify/
+./my_custom_apps/web_timeline/
+./my_custom_apps/website_form_builder/
+

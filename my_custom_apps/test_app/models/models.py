@@ -159,6 +159,12 @@ class HospitalPatient(models.Model):
     def test_app(self):
         pass
 
+    @api.depends('category')
+    def findTechnicalPerson(self):
+        pass
+
+
+
 # class test_app(models.Model):
 #     _name = 'test_app.test_app'
 #     _description = 'test_app.test_app'
@@ -172,3 +178,4 @@ class HospitalPatient(models.Model):
 #     def _value_pc(self):
 #         for record in self:
 #             record.value2 = float(record.value) / 100
+

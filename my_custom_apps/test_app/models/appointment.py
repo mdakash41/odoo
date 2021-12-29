@@ -26,7 +26,29 @@ class HospitalAppointment(models.Model):
         result = super(HospitalAppointment, self).default_get(fields_list)
         result['patient_id'] = 5
         result['notes']='This default string is comming from the api.model get_default funciton'
-        return  result
+        return result
+
+
+    @api.model
+    def default_get(self, fields):
+        res = super(HospitalAppointment, self).default_get(fields)
+        #res[patient_id] = 1
+        #res[notes] = 'Like and Subscribe our channel To Get Notified'
+        #return res
+        appointment_lines = []
+        product_rec = self.env['product.product'].search([])
+        for pro in product_rec:
+            line = (0, 0, {
+                'product_id': pro.id,
+                'product_qty': 1,
+            })
+            appointment_lines.append(line)
+        res.update({
+            'appointment_lines': appointment_lines,
+            'patient_id': 1,
+            'notes': 'Like and Subscribe our channel To Get Notified'
+        })
+        return res
 
 
     @api.onchange('partner_id')

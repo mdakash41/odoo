@@ -17,7 +17,9 @@ class TestApp(http.Controller):
             'html': """
                     <div>
                         <h1>hello, world</h1>
-                    </div> """
+                    </div> 
+                    
+                    """
         }
         # return "Hello, world"
 

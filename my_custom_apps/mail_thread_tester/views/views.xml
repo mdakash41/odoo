@@ -1,0 +1,44 @@
+<odoo>
+  <data>
+
+    <record id="mail_action_form" model="ir.ui.view">
+        <field name="name">Mail Form</field>
+        <field name="model">test.mail_thread</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="image" class="oe_avatar" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="mail_action_view" model="ir.actions.act_window">
+        <field name="name">Mail Tester</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">test.mail_thread</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Testing my odoo app
+                create first patient!
+            </p>
+        </field>
+    </record>
+
+    <!--        <field name="context">{"search_default_name":"demo"}</field>-->
+
+
+    <menuitem name="Mail Thread Tester" id="mail_thread_tester.menu_root"/>
+    <menuitem name="Menu 1" action="mail_action_view" id="mail_thread_tester.menu_1" parent="mail_thread_tester.menu_root"/>
+
+  </data>
+</odoo>

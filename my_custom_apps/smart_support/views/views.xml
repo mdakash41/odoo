@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+  <record id="support_form" model="ir.ui.view">
+      <field name="name">Support Application Form View</field>
+      <field name="model">support.tickets</field>
+      <field name="arch" type="xml">
+          <form string="Ticket">
+              <sheet>
+                  <group>
+                      <group>
+                          <field name="title"/>
+                          <field name="create_uid"/>
+                          <field name="title"/>
+                          <field name="title"/>
+
+                      </group>
+                  </group>
+              </sheet>
+          </form>
+      </field>
+  </record>
+
+  <record id="support_action" model="ir.actions.act_window">
+      <field name="name">Support Action</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">support.tickets</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Create Your First Tickets By Clicking the create Button
+        </p><p>
+          <!-- More details about what a user can do with this object will be OK -->
+        </p>
+      </field>
+  </record>
+
+
+
+
+  <menuitem id="support_root_menu" name="Support System" sequence="0" />
+  <menuitem id="support_ticket_menu" name="Tickets" parent="support_root_menu" action="support_action" sequence="1"/>
+  <menuitem id="support_category_menu" name="Category" parent="support_root_menu" action="" sequence="1"/>
+
+</odoo>
